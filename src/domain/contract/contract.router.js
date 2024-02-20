@@ -22,7 +22,6 @@ module.exports = (app) => {
    */
   router.get('/', getProfile, async (req, res) => {
     const contracts = await contractController.getByProfileId({ profileId: req.profile.id, raw: true });
-    if (!contracts) return res.status(404).end();
     res.json(contracts);
   });
 
