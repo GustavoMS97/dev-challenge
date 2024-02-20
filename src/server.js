@@ -6,6 +6,7 @@ const ProfileMiddlewareFactory = require('./domain/profile/profile.middleware');
 const contractRouter = require('./domain/contract/contract.router');
 const jobRouter = require('./domain/job/job.router');
 const balanceRouter = require('./domain/balance/balance.router');
+const adminRouter = require('./domain/admin/admin.router');
 
 async function application() {
   try {
@@ -22,6 +23,7 @@ async function application() {
     app.use('/contracts', contractRouter(app));
     app.use('/jobs', jobRouter(app));
     app.use('/balances', balanceRouter(app));
+    app.use('/admin', adminRouter(app));
     app.use((error, _req, res, _next) => {
       return res.status(500).send({ message: error.message });
     });
