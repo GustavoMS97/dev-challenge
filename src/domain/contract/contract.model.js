@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize');
 
+const { CONTRACT_STATUS } = require('./contract.enum');
+
 const ContractModel = (sequelize) => {
   class Contract extends Sequelize.Model {}
   Contract.init(
@@ -9,7 +11,7 @@ const ContractModel = (sequelize) => {
         allowNull: false
       },
       status: {
-        type: Sequelize.ENUM('new', 'in_progress', 'terminated')
+        type: Sequelize.ENUM(Object.values(CONTRACT_STATUS))
       }
     },
     {

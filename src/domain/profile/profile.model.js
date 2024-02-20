@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize');
 
+const { PROFILE_TYPE } = require('./profile.enum');
+
 const ProfileModel = (sequelize) => {
   class Profile extends Sequelize.Model {}
   Profile.init(
@@ -20,7 +22,7 @@ const ProfileModel = (sequelize) => {
         type: Sequelize.DECIMAL(12, 2)
       },
       type: {
-        type: Sequelize.ENUM('client', 'contractor')
+        type: Sequelize.ENUM(Object.values(PROFILE_TYPE))
       }
     },
     {
