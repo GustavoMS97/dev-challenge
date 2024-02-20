@@ -38,7 +38,6 @@ class JobController {
             as: 'Contract',
             required: true,
             where: { [Op.or]: [{ ClientId: profileId }, { ContractorId: profileId }] }
-            // attributes: ['status']
           }
         ]
       });
@@ -65,7 +64,9 @@ class JobController {
       });
     } catch (error) {
       console.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
-      throw new Error(`Error getting jobs by profileId=${profileId}, paid status=${paidStatus}, contract status=${contractStatus}`);
+      throw new Error(
+        `Error getting jobs by profileId=${profileId}, paid status=${paidStatus}, contract status=${contractStatus}`
+      );
     }
   }
 }
