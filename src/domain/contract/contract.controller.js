@@ -4,7 +4,7 @@ const { CONTRACT_STATUS } = require('./contract.enum');
 class ContractController {
   #contractModel;
 
-  constructor(contractModel) {
+  constructor({ contractModel }) {
     this.#contractModel = contractModel;
   }
 

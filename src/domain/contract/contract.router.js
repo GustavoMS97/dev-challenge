@@ -6,7 +6,7 @@ module.exports = (app) => {
   const router = express.Router();
   const { Contract } = app.get('models');
   const { getProfile } = app.get('middlewares');
-  const contractController = new ContractController(Contract);
+  const contractController = new ContractController({ contractModel: Contract });
 
   /**
    * 1 - GET /contracts/:id Returns the contract by id, only if it belongs to the profile calling
