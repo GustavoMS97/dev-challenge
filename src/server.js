@@ -1,8 +1,9 @@
 const SequelizeManager = require('./infra/sequelize');
 const { startApp } = require('./infra/express');
 
-const contractRouter = require('./domain/contract/contract.router');
 const ProfileMiddlewareFactory = require('./domain/profile/profile.middleware');
+const contractRouter = require('./domain/contract/contract.router');
+const jobRouter = require('./domain/job/job.router');
 
 async function application() {
   try {
@@ -17,6 +18,7 @@ async function application() {
     app.set('middlewares', { ...ProfileMiddlewareFactory(app) });
     // routers
     app.use('/contracts', contractRouter(app));
+    app.use('/jobs', jobRouter(app));
     // listen
     app.listen(3001, () => {
       console.log('Express App Listening on Port 3001');
