@@ -45,16 +45,13 @@ module.exports = (app) => {
       if (clientProfile.balance < job.price) {
         return res.status(400).send({ message: `You don't have enough balance to pay for this job` });
       }
-      const promiseResults = await Promise.allSettled([
+      const promiseResults = await Promise.all([
         profileController.updateBalanceById({ id: req.profile.id, valueToAdd: -job.price }),
         profileController.updateBalanceById({ id: job.Contract.ContractorId, valueToAdd: job.price }),
         jobController.updatePaidById({ id: req.params.job_id })
       ]);
 
-      console.info(
-        'Promise results',
-        promiseResults.map((p) => p.status)
-      );
+      console.info('Promise results', promiseResults);
 
       return res.status(200).send();
     } catch (error) {
