@@ -2,6 +2,7 @@ const SequelizeManager = require('./infra/sequelize');
 const { startApp } = require('./infra/express');
 
 const ProfileMiddlewareFactory = require('./domain/profile/profile.middleware');
+
 const contractRouter = require('./domain/contract/contract.router');
 const jobRouter = require('./domain/job/job.router');
 const balanceRouter = require('./domain/balance/balance.router');
@@ -21,6 +22,10 @@ async function application() {
     app.use('/contracts', contractRouter(app));
     app.use('/jobs', jobRouter(app));
     app.use('/balances', balanceRouter(app));
+    app.use((error, _req, res, _next) => {
+      return res.status(500).send({ message: error.message });
+    });
+
     // listen
     app.listen(3001, () => {
       console.log('Express App Listening on Port 3001');
