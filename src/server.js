@@ -8,7 +8,7 @@ const jobRouter = require('./domain/job/job.router');
 const balanceRouter = require('./domain/balance/balance.router');
 const adminRouter = require('./domain/admin/admin.router');
 
-async function application() {
+async function runServer() {
   try {
     // DB start
     const sequelizeManager = new SequelizeManager();
@@ -24,18 +24,16 @@ async function application() {
     app.use('/jobs', jobRouter(app));
     app.use('/balances', balanceRouter(app));
     app.use('/admin', adminRouter(app));
+    // eslint-disable-next-line no-unused-vars
     app.use((error, _req, res, _next) => {
       return res.status(500).send({ message: error.message });
     });
 
-    // listen
-    app.listen(3001, () => {
-      console.log('Express App Listening on Port 3001');
-    });
+    return app;
   } catch (error) {
     console.error(`An error occurred: ${JSON.stringify(error, Object.getOwnPropertyNames(error))}`);
     process.exit(1);
   }
 }
 
-application();
+module.exports = runServer;

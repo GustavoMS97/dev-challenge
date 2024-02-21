@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./src/server.js",
-    "seed": "node ./scripts/seedDb.js",
+    "start": "nodemon ./src/main.js",
+    "seed": "node ./scripts/run-seed.js",
     "test:base": "node --max-old-space-size=8192 node_modules/.bin/jest --runInBand",
-    "test:unit": "yarn test:base --config=./test/unit/jest-unit.config.js"
+    "test:unit": "yarn test:base --config=./test/unit/jest-unit.config.js",
+    "test:e2e": "yarn test:base --config=./test/e2e/jest-e2e.config.js",
+    "test": "yarn test:base --config=./test/jest.config.js --silent"
   },
   "dependencies": {
     "@joi/date": "2.1.0",
@@ -27,7 +29,8 @@
     "eslint-plugin-promise": "6.0.0",
     "jest": "29.7.0",
     "nodemon": "3.0.3",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "supertest": "6.3.4"
   },
   "engines": {
     "node": ">=10.16.3"
