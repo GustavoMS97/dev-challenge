@@ -1,10 +1,15 @@
 const SequelizeManager = require('../src/infra/sequelize');
 
-async function seed() {
+async function seed(instance) {
   try {
     const sequelizeManager = new SequelizeManager();
-    const sequelize = sequelizeManager.start();
-    sequelizeManager.createRelationships();
+    let sequelize;
+    if (instance) {
+      sequelize = instance;
+    } else {
+      sequelize = sequelizeManager.start();
+      sequelizeManager.createRelationships();
+    }
 
     const { Profile, Contract, Job } = sequelize.models;
     // create tables
@@ -235,4 +240,4 @@ async function seed() {
   }
 }
 
-seed();
+exports.seed = seed;
