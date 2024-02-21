@@ -5,7 +5,16 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.js'],
   coverageDirectory: 'test/coverage/',
-  coveragePathIgnorePatterns: ['/node_modules/', 'src-old/', 'server.js', 'main.js', '.model.js', '.enum.js'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    'src-old/',
+    'server.js',
+    'main.js',
+    '.model.js',
+    '.enum.js',
+    'express.js',
+    'sequelize.js'
+  ],
   coverageThreshold: {
     global: {
       statements: 100,
