@@ -3,11 +3,11 @@ const { Op } = require('sequelize');
 class ContractController {
   #contractModel;
 
-  constructor({ contractModel } = {}) {
+  constructor({ contractModel }) {
     this.#contractModel = contractModel;
   }
 
-  async getByIdAndProfileId({ id, profileId } = {}) {
+  async getByIdAndProfileId({ id, profileId }) {
     try {
       return await this.#contractModel.findOne({
         where: { id, [Op.or]: [{ ClientId: profileId }, { ContractorId: profileId }] }
@@ -18,7 +18,7 @@ class ContractController {
     }
   }
 
-  async getByProfileIdAndStatus({ profileId, status, statusNot, raw = false } = {}) {
+  async getByProfileIdAndStatus({ profileId, status, statusNot, raw = false }) {
     try {
       return await this.#contractModel.findAll({
         where: {

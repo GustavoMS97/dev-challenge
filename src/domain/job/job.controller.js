@@ -9,7 +9,7 @@ class JobController {
     this.#contractModel = contractModel;
   }
 
-  async findById({ id } = {}) {
+  async findById({ id }) {
     try {
       return await this.#jobModel.findOne({ where: { id } });
     } catch (error) {
@@ -18,7 +18,7 @@ class JobController {
     }
   }
 
-  async updatePaidById({ id } = {}) {
+  async updatePaidById({ id }) {
     try {
       return await this.#jobModel.update({ paid: true, paymentDate: new Date() }, { where: { id } });
     } catch (error) {
@@ -27,7 +27,7 @@ class JobController {
     }
   }
 
-  async getJobByIdAndProfileId({ id, profileId, raw = false } = {}) {
+  async getJobByIdAndProfileId({ id, profileId, raw = false }) {
     try {
       return await this.#jobModel.findOne({
         raw,
@@ -47,7 +47,7 @@ class JobController {
     }
   }
 
-  async getJobsByPaidStatusProfileIdAndContractStatus({ paidStatus, profileId, contractStatus, raw = false } = {}) {
+  async getJobsByPaidStatusProfileIdAndContractStatus({ paidStatus, profileId, contractStatus, raw = false }) {
     try {
       return await this.#jobModel.findAll({
         raw,

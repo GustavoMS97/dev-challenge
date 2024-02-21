@@ -7,13 +7,13 @@ class ProfileController {
   #contractModel;
   #jobModel;
 
-  constructor({ profileModel, contractModel, jobModel } = {}) {
+  constructor({ profileModel, contractModel, jobModel }) {
     this.#profileModel = profileModel;
     this.#contractModel = contractModel;
     this.#jobModel = jobModel;
   }
 
-  async findById({ id } = {}) {
+  async findById({ id }) {
     try {
       return await this.#profileModel.findOne({ where: { id } });
     } catch (error) {
@@ -22,7 +22,7 @@ class ProfileController {
     }
   }
 
-  async updateBalanceById({ id, valueToAdd } = {}) {
+  async updateBalanceById({ id, valueToAdd }) {
     try {
       return await this.#profileModel.increment({ balance: valueToAdd }, { where: { id } });
     } catch (error) {
@@ -31,7 +31,7 @@ class ProfileController {
     }
   }
 
-  async getProfessionByEarningDesc({ start, end, raw = false } = {}) {
+  async getProfessionByEarningDesc({ start, end, raw = false }) {
     const validatedParams = applyDateRangeValidation({ start, end });
     try {
       return await this.#profileModel.findAll({
@@ -70,7 +70,7 @@ class ProfileController {
     }
   }
 
-  async getClientsThatPaidTheMostWithRangeAndLimit({ start, end, limit = 2, raw = false } = {}) {
+  async getClientsThatPaidTheMostWithRangeAndLimit({ start, end, limit = 2, raw = false }) {
     const validatedParams = applyDateRangeValidation({ start, end });
     try {
       // Worked with this as a raw DB query due to not being able to perform this 'limit' directly from Sequelize Model.
