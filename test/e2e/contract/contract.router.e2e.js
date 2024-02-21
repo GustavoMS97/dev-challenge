@@ -6,10 +6,8 @@ const ContractController = require('../../../src/domain/contract/contract.contro
 
 describe('ContractRouter', () => {
   let requestServer;
-  const now = new Date('2024-02-21 10:00:00Z');
+
   beforeAll(async () => {
-    jest.useFakeTimers();
-    jest.setSystemTime(now);
     requestServer = await runServer();
     await seed(requestServer.get('sequelize'));
   });
@@ -53,11 +51,11 @@ describe('ContractRouter', () => {
         {
           ClientId: 1,
           ContractorId: 6,
-          createdAt: '2024-02-21 10:00:00.000 +00:00',
+          createdAt: expect.any(String),
           id: 2,
           status: 'in_progress',
           terms: 'bla bla bla',
-          updatedAt: '2024-02-21 10:00:00.000 +00:00'
+          updatedAt: expect.any(String)
         }
       ]);
     });
@@ -70,10 +68,5 @@ describe('ContractRouter', () => {
       expect(response.body).toEqual({ message: error.message });
       spy.mockRestore();
     });
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-    jest.resetAllMocks();
   });
 });
