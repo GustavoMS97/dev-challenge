@@ -11,7 +11,7 @@ class SequelizeManager {
       this.#instance = new Sequelize({
         dialect: 'sqlite',
         storage: process.env.NODE_ENV === 'test' ? ':memory:' : './database.sqlite3',
-        logging: process.env.NODE_ENV !== 'test'
+        logging: process.env.NODE_ENV !== 'test' ? console.log : false
       });
       return this.#instance;
     } catch (error) {
