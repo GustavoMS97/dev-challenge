@@ -96,3 +96,53 @@ It would be great for example if you'd write some unit test / simple frontend de
 When you have finished the assignment, zip your repo (make sure to include .git folder) and send us the zip.
 
 Thank you and good luck! 🙏
+
+## DEV Notes
+
+### Code Structure
+
+I opted to change the structure a little bit, since I had the time, to implement a Domain Driven Design structure, with dependency injection/inversion of control, to be able to not only perform unit tests all over the application, but e2e tests as well, making sure of how every detail is expected to work.
+
+Even though it can get a lot bigger, I believe the implementation this way makes it so that it is highly scalable and easy to maintain in case a project needs to grow.
+
+With that being said, here's just a small introduction to the structure:
+
+Inside `src` you'll find two main folders, `domain`, which will contain every domain we'll have inside our application, and `infra`, which consists of configuration files like express, sequelize, or any other lib/sdk that requires configuration.
+
+Inside each `domain`, we'll have the files below where applicable:
+
+- `.controller.js` Here is where we'll implement DB interaction
+- `.model.js` Here is where we'll find the DB model implementation
+- `.router.js` Here is where all the endpoint implementations are going to be
+- `.middleware.js` Like the routers, in the middleware files is where we implement logic for any middlewares necessary for the routes
+- `.enum.js` Constants that belong to that domain
+- `.validator.js` Reusable methods to check input objects
+
+Inside the `domain` folder, I also like to add a `@utils` or `@common` folder, for validations, enums, or anything else that will be reused in the application, and doesn't necessarily belongs to a domain.
+
+---
+
+### Test Structure
+
+Following what was done in the main code folders, I opted to follow almost the same folder structure, so that it's easy to know where your test is and it's natural to know where to find it. Inside our test folder, we have two main folders, one for `unit` tests, and one for `e2e` tests, with it's own configuration through `Jest`.
+
+Inside our domain folders inside the test folders, you'll find two types of tests, `.spec.js` which consists of unit tests with `Jest`, taking advantage of dependency injection/inversion of control, and `.e2e.js` which consists of our end-to-end tests with `Jest + supertest`.
+
+Unit tests are super simple, it's just testing methods/logic, making sure it works as expected. On the other hand, end-to-end tests are more complex due to some changes I had to implement. here are a couple things that made this testing possible:
+
+- Changing the server/main application into two files, so that I can serve the app to supertest
+- Changing the sequelize manager inside `src/infra/sequelize.js` to use memory storage when `NODE_ENV=test`, which jest will do that my default
+- Changing the SEED script, so that I can use inside my e2e tests, inside the beforeAll/beforeEach, restarting the information for each test suite/case, depending on the necessity.
+
+#### Running the tests
+
+- `yarn test:unit`/`npm run test:unit` runs unit tests
+- `yarn test:e2e`/`npm run test:e2e` runs e2e tests
+- `yarn test`/`npm run test` runs all tests
+
+Obs: after tests finish running, a `coverage` folder will be created under the test folder, for more visual information.
+
+
+### Notes for the reviewer
+
+In case you want to use Postman to test, I added my collection to the root folder, so just importing it will have all the endpoints and information needed.
