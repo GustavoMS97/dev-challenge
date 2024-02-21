@@ -19,11 +19,12 @@ class JobController {
   }
 
   async updatePaidById({ id }) {
+    const paymentDate = new Date();
     try {
-      return await this.#jobModel.update({ paid: true, paymentDate: new Date() }, { where: { id } });
+      return await this.#jobModel.update({ paid: true, paymentDate }, { where: { id } });
     } catch (error) {
       console.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
-      throw new Error(`Error updating job=${id} to paid status with payment date=${new Date()}`);
+      throw new Error(`Error updating job=${id} to paid status with payment date=${paymentDate}`);
     }
   }
 
