@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "44dc12d6-e91d-4b18-abf4-6eb788b049fe",
+		"name": "Deel Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25009180"
+	},
+	"item": [
+		{
+			"name": "Contract",
+			"item": [
+				{
+					"name": "GET Contract by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/contracts/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"contracts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Contract",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "6",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/contracts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"contracts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job",
+			"item": [
+				{
+					"name": "GET Jobs unpaid",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/jobs/unpaid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"jobs",
+								"unpaid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Jobs pay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/jobs/2/pay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"jobs",
+								"2",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Balance",
+			"item": [
+				{
+					"name": "POST Balance add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit\": 50.26\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/balances/deposit/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"balances",
+								"deposit",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "GET Admin best profession",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/best-profession?start=2020-08-10&end=2020-08-17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"best-profession"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2020-08-10",
+									"description": "First date record in DB - 2020-08-10"
+								},
+								{
+									"key": "end",
+									"value": "2020-08-17",
+									"description": "Last date record in DB - 2020-08-17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Admin best client",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "profile_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/best-clients?start=2020-08-10&end=2020-08-17&limit=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"best-clients"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2020-08-10",
+									"description": "First date record in DB - 2020-08-10"
+								},
+								{
+									"key": "end",
+									"value": "2020-08-17",
+									"description": "Last date record in DB - 2020-08-17"
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"description": "max limit that will return - 4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
