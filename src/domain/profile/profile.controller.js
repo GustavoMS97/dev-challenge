@@ -81,9 +81,8 @@ class ProfileController {
       const query = `
         SELECT 
             Profile.id,
-            Profile.firstName,
-            Profile.lastName,
-            SUM(Job.price) AS paidTotal
+            Profile.firstName || ' ' || Profile.lastName AS fullName,
+            SUM(Job.price) AS paid
         FROM 
             Profiles AS Profile
         INNER JOIN 
@@ -97,14 +96,14 @@ class ProfileController {
         GROUP BY 
             Profile.id
         ORDER BY 
-            paidTotal DESC
+            paid DESC
         LIMIT ${limit};
       `;
       // return await this.#profileModel.findAll({
       //   raw,
       //   limit,
       //   where: { type: PROFILE_TYPE.CLIENT },
-      //   attributes: ['id', [fn('SUM', col('Client.Jobs.price')), 'paidTotal']],
+      //   attributes: ['id', [fn('SUM', col('Client.Jobs.price')), 'paid']],
       //   include: [
       //     {
       //       as: 'Client',
@@ -129,7 +128,7 @@ class ProfileController {
       //     }
       //   ],
       //   group: ['Profile.id'],
-      //   order: [[col('paidTotal'), 'DESC']]
+      //   order: [[col('paid'), 'DESC']]
       // });
       const [results] = await this.#profileModel.sequelize.query(query);
       return results;

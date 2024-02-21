@@ -4,6 +4,7 @@ const { CONTRACT_STATUS } = require('../contract/contract.enum');
 
 const JobController = require('./job.controller');
 const ProfileController = require('../profile/profile.controller');
+const { PROFILE_TYPE } = require('../profile/profile.enum');
 
 module.exports = (app) => {
   const router = express.Router();
@@ -34,11 +35,13 @@ module.exports = (app) => {
    */
   router.post('/:job_id/pay', getProfile, async (req, res, next) => {
     try {
+      if (req.profile.type !== PROFILE_TYPE.CLIENT) {
+        return res.status(401).send({ message: 'Only a client can perform the payment action' });
+      }
       const job = await jobController.getJobByIdAndProfileId({ id: req.params.job_id, profileId: req.profile.id });
       if (!job) {
         return res.status(404).send({ message: 'Job not found' });
-      }
-      if (job.paid) {
+      } else if (job.paid) {
         return res.status(400).send({ message: 'Job is already paid' });
       }
       const clientProfile = await profileController.findById({ id: req.profile.id });

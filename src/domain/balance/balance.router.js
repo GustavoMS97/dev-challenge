@@ -24,7 +24,7 @@ module.exports = (app) => {
       } else if (req.profile.id !== parseInt(req.params.userId)) {
         return res.status(401).send({ message: 'Cannot deposit into other clients account' });
       } else if (!req.body.deposit) {
-        return res.status(401).send({ message: '"deposit" is required' });
+        return res.status(400).send({ message: '"deposit" is required' });
       }
 
       const jobs = await jobController.getJobsByPaidStatusProfileIdAndContractStatus({
@@ -38,7 +38,7 @@ module.exports = (app) => {
       console.info('Total of jobs to pay: ', totalToPay);
 
       if (req.body.deposit > totalToPay * 0.25) {
-        return res.status(400).send({ message: 'Client cannot deposit more than 25% of hit total jobs to pay' });
+        return res.status(400).send({ message: `Client cannot deposit more than 25% of it's total jobs to pay` });
       }
 
       console.info('Old balance: ', req.profile.balance);
