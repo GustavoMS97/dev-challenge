@@ -1,4 +1,4 @@
-# DEEL BACKEND TASK
+# TECH BACKEND TASK
 
 💫 Welcome! 🎉
 
